@@ -5,7 +5,7 @@ all: build run clean
 
 
 build:
-	gcc $(file_name) -o $(output_name)
+	g++ $(file_name) -o $(output_name)
 
 run:
 	./main.exe

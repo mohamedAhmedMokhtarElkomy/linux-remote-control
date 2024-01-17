@@ -1,4 +1,4 @@
-#include<stdio.h>
+// #include<stdio.h>
 #include <iostream>
 #include<sys/socket.h>
 #include <netdb.h> //getaddrinfo()
@@ -52,7 +52,8 @@ int main(){
      * "domain" is PF_INET or PF_INET6,
      * "type" is SOCK_STREAM or SOCK_DGRAM,
      * "protocol" can be set to 0 to choose the proper protocol for the given type. Or you can call getprotobyname() to look up the protocol you want, “tcp” or “udp”.)
-     ****************************************/    
+     ****************************************/ 
+    cout << "socket()" << endl;   
     sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 
     if(sockfd == -1){
@@ -65,6 +66,7 @@ int main(){
      * "my_addr" is a pointer to a struct sockaddr that contains information about your address, namely, port and IP address
      * "addrlen" is the length in bytes of that address
      ****************************************/ 
+    cout << "bind()" << endl;
     if( bind(sockfd, res->ai_addr, res->ai_protocol) == -1){
         cout << "Error: failed to bind socket" << endl;
         return 0;
@@ -74,11 +76,13 @@ int main(){
      * "sockfd" is the socket file descriptor returned by socket()
      * "backlog" is the number of connections allowed on the incoming queue
      ****************************************/
+    cout << "listen()" << endl;
     if( listen(sockfd, BACKLOG) == -1){
         cout << "Error: failed to listen" << endl;
         return 0;
     }
 
+    cout << "accept()" << endl;
     addr_size = sizeof storage_addr;
     clientfd = accept(sockfd, (struct sockaddr *)&storage_addr, &addr_size);
 
