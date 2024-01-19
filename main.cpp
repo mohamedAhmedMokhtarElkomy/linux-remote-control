@@ -34,7 +34,7 @@ int main(){
  *******************************************************************************/
     /* sockfd => socket file descriptor */
     int sockfd = 0, clientfd; 
-    char *msg;
+    char msg[10];
     int msg_len;    
     struct addrinfo hints, *res;
     struct sockaddr_storage storage_addr;
@@ -110,19 +110,21 @@ int main(){
      ****************************************/
 
     cout << "receive()" << endl;
+    msg_len = 10;
     int receive_result = recv(clientfd, msg, msg_len, 0);
     cout << receive_result << endl;
-    while(receive_result > 0){
-        cout << "while()" << endl;
-        receive_result = recv(clientfd, msg, msg_len, 0);
+    cout << errno << endl;
+    // while(receive_result > 0){
+    //     cout << "while()" << endl;
+    //     receive_result = recv(clientfd, msg, msg_len, 0);
 
-        // if(receive_result == -1){
-        //     cout << "Error: failed to receive" << endl;
-        //     cout << errno << endl;
-        //     shutdown(sockfd, SHUT_RDWR);
-        //     return 0;
-        // }
-    }
+    //     // if(receive_result == -1){
+    //     //     cout << "Error: failed to receive" << endl;
+    //     //     cout << errno << endl;
+    //     //     shutdown(sockfd, SHUT_RDWR);
+    //     //     return 0;
+    //     // }
+    // }
     cout << msg << endl;
     cout << "END OF CODE" << endl;
     cout << errno << endl;
