@@ -3,11 +3,13 @@
 #include<sys/socket.h>
 #include <netdb.h> //getaddrinfo()
 #include<string.h> //memset()
+#include <errno.h>
+
 
 
 using namespace std;
 
-#define PORT "5000"
+#define PORT "5001"
 #define BACKLOG 5
 
 int main(){
@@ -67,7 +69,8 @@ int main(){
      * "addrlen" is the length in bytes of that address
      ****************************************/ 
     cout << "bind()" << endl;
-    if( bind(sockfd, res->ai_addr, res->ai_protocol) == -1){
+    if( bind(sockfd, res->ai_addr, res->ai_addrlen) == -1){
+        cout << errno << endl;
         cout << "Error: failed to bind socket" << endl;
         return 0;
     }
@@ -79,6 +82,7 @@ int main(){
     cout << "listen()" << endl;
     if( listen(sockfd, BACKLOG) == -1){
         cout << "Error: failed to listen" << endl;
+        shutdown(sockfd, SHUT_RDWR);
         return 0;
     }
 
@@ -88,8 +92,15 @@ int main(){
 
     if(clientfd == -1){
         cout << "Error: failed to accept" << endl;
+        shutdown(sockfd, SHUT_RDWR);
         return 0;
     }
+
+    cout << "send()" << endl;
+    char *msgg = "hello there!";
+    int len, bytes_sent;
+    len = strlen(msgg);
+    bytes_sent = send(clientfd, msgg, len, 0);
 
     /****************************************
      * "sockfd" is the socket file descriptor returned by socket()
@@ -97,19 +108,27 @@ int main(){
      * "len" is the maximum length of the buffer
      * "flags" can again be set to 0
      ****************************************/
-    int receive_result = recv(sockfd, msg, msg_len, 0);
-    if(receive_result == -1){
-        cout << "Error: failed to receive" << endl;
-        return 0;
-    }else if(receive_result == 0){
-        cout << "Error: client closed the session" << endl;
-        return 0;
+
+    cout << "receive()" << endl;
+    int receive_result = recv(clientfd, msg, msg_len, 0);
+    cout << receive_result << endl;
+    while(receive_result > 0){
+        cout << "while()" << endl;
+        receive_result = recv(clientfd, msg, msg_len, 0);
+
+        // if(receive_result == -1){
+        //     cout << "Error: failed to receive" << endl;
+        //     cout << errno << endl;
+        //     shutdown(sockfd, SHUT_RDWR);
+        //     return 0;
+        // }
     }
-
     cout << msg << endl;
+    cout << "END OF CODE" << endl;
+    cout << errno << endl;
 
 
-
+    shutdown(sockfd, SHUT_RDWR); 
 
     return 0;
 }

@@ -7,7 +7,7 @@ all: build run clean
 build:
 	g++ $(file_name) -o $(output_name)
 
-run:
+run: build
 	./main.exe
 
 clean:
