@@ -112,13 +112,14 @@ int main(){
             perror(MSG_RECEIVED_FAILED);
             shutdown(sockfd, SHUT_RDWR);
             exit(errno);
+        }else if (receive_result == 0){
+            cout << "user closed the session" << endl;
+            shutdown(sockfd, SHUT_RDWR);
+            exit(0);
         }else{
             cout << msg << endl;
         }
-    }while(receive_result != 0);
-    cout << "user closed the session" << endl;
-
-    shutdown(sockfd, SHUT_RDWR); 
-
+    }while(1);
+    
     return 0;
 }
