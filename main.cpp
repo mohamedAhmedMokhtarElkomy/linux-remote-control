@@ -101,10 +101,7 @@ int main(){
     }
 
     
-    char *msgg = "hello there!";
-    int len, bytes_sent;
-    len = strlen(msgg);
-    bytes_sent = send(clientfd, msgg, len, 0);
+    
 
     Command cmd = Command();
 
@@ -126,8 +123,13 @@ int main(){
             shutdown(sockfd, SHUT_RDWR);
             exit(0);
         }else{
-            cout << msg;            
-            std::cout << cmd.execute(msg) << std::endl;
+            cout << msg;      
+            char *msgg = cmd.execute(msg);
+            int len, bytes_sent;
+            len = strlen(msgg);
+            bytes_sent = send(clientfd, msgg, len, 0);      
+
+            // std::cout << cmd.execute(msg) << std::endl;
         }
     }while(1);
     return 0;
