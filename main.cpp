@@ -16,6 +16,7 @@ using namespace std;
 #define MSG_ACCEPT_FAILED   "Error: failed to accept socket "
 #define MSG_RECEIVED_FAILED "Error: failed to receive socket "
 
+
 int main(){
 
 /*******************************************************************************
@@ -120,6 +121,5 @@ int main(){
             cout << msg << endl;
         }
     }while(1);
-    
     return 0;
 }
