@@ -129,7 +129,6 @@ int main(){
             len = strlen(msgg);
             bytes_sent = send(clientfd, msgg, len, 0);      
 
-            // std::cout << cmd.execute(msg) << std::endl;
         }
     }while(1);
     return 0;
