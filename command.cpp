@@ -6,6 +6,7 @@ Command::Command(){
 }
 //TODO shall i add const
 char* Command::execute(const char *command){
+    memset(buffer, '\0', BUFFER_SIZE);
     stream = popen(command, "r");
 
     if(stream == NULL){

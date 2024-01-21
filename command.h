@@ -3,8 +3,9 @@
 
 #include<stdio.h>
 #include<iostream>
+#include<string.h> //memset()
 
-#define BUFFER_SIZE 1000
+#define BUFFER_SIZE 100
 
 class Command{
 private:
