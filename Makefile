@@ -3,9 +3,8 @@ output_name = main.exe
 
 all: build run clean
 
-
 build:
-	g++ $(file_name) -o $(output_name)
+	g++ -o $(output_name) $(file_name) command.cpp
 
 run: build
 	./main.exe
