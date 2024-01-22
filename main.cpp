@@ -8,21 +8,11 @@ using namespace std;
 
 #define PORT "5000"
 #define BACKLOG 5
-// #define BUFFER_SIZE 10
 #define MSG_SOCK_FAILED     "ERROR: failed to start socket "
 #define MSG_BIND_FAILED     "ERROR: failed to bind socket "
 #define MSG_LISTEN_FAILED   "Error: failed to listen socket "
 #define MSG_ACCEPT_FAILED   "Error: failed to accept socket "
 #define MSG_RECEIVED_FAILED "Error: failed to receive socket "
-
-
-// int main(){
-    
-//     Command cmd = Command();
-//     std::cout << cmd.execute("ls") << std::endl;   
-
-//     return 0;
-// }
 
 int main(){
 
